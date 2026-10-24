@@ -1,0 +1,32 @@
+# =============================================================================
+# Big Data-Based E-Commerce Demand Forecasting & Inventory Optimization
+# Python Dependencies
+# =============================================================================
+
+# --- Big Data Processing ---
+pyspark>=3.4.0                 # Apache Spark Python API (includes Spark SQL, MLlib)
+
+# --- Data Handling ---
+pandas>=2.0.0                  # Used only for dashboard/small result sets
+numpy>=1.24.0                  # Numerical operations
+openpyxl>=3.1.0                # Read Excel files (UCI dataset is .xlsx)
+
+# --- Database ---
+pymongo>=4.5.0                 # MongoDB driver (optional, see config)
+
+# --- Visualization & Dashboard ---
+streamlit>=1.28.0              # Web dashboard framework
+plotly>=5.17.0                 # Interactive charts
+matplotlib>=3.7.0              # Static charts (for reports)
+seaborn>=0.12.0                # Statistical visualizations
+
+# --- Configuration ---
+pyyaml>=6.0                    # YAML config parsing
+
+# --- Utilities ---
+requests>=2.31.0               # HTTP downloads
+tqdm>=4.65.0                   # Progress bars
+scipy>=1.11.0                  # Statistical functions (Z-scores, etc.)
+
+# --- Development ---
+jupyter>=1.0.0                 # Notebooks for exploration (optional)

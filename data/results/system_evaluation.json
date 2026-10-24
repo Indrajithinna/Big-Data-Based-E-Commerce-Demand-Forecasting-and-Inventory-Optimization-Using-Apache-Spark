@@ -1,0 +1,211 @@
+{
+  "title": "System Evaluation Report",
+  "project": "Big Data-Based E-Commerce Demand Forecasting & Inventory Optimization",
+  "generated_at": "2026-10-14T06:51:48.608095",
+  "modules": {
+    "module_1_ingestion": {
+      "name": "Data Collection & Ingestion",
+      "status": "Complete",
+      "description": "Downloaded UCI Online Retail II dataset, converted from Excel to CSV, enriched with simulated fields (Product_Category, Discount, Inventory_Level, Supplier, Delivery_Date).",
+      "bis701_concepts": [
+        "Data Ingestion",
+        "ETL Pipeline",
+        "Data Enrichment"
+      ]
+    },
+    "module_3_preprocessing": {
+      "name": "Data Preprocessing",
+      "status": "Complete",
+      "description": "PySpark pipeline: schema definition, missing value handling, deduplication, outlier removal, date feature extraction, data quality validation.",
+      "bis701_concepts": [
+        "Apache Spark",
+        "PySpark DataFrames",
+        "Spark SQL",
+        "Distributed Data Processing",
+        "Data Quality"
+      ],
+      "spark_operations": [
+        "SparkSession creation",
+        "CSV ingestion with explicit schema",
+        "dropna()",
+        "dropDuplicates()",
+        "filter()",
+        "withColumn()",
+        "createOrReplaceTempView()",
+        "spark.sql()",
+        "write.parquet()"
+      ]
+    },
+    "module_4_analytics": {
+      "name": "Exploratory Big Data Analytics",
+      "status": "Complete",
+      "kpis": {
+        "Total_Revenue": 19064348.94,
+        "Total_Orders": 40069,
+        "Total_Units_Sold": 10921890,
+        "Total_Products": 4916,
+        "Total_Customers": 5879,
+        "Total_Regions": 43,
+        "Average_Order_Value": 475.79,
+        "Average_Daily_Demand": 14799.31,
+        "Revenue_Growth_Rate_Pct": -68.74,
+        "Inventory_Turnover": 81512.72,
+        "Average_Inventory_Level": 133.99,
+        "Products_At_Stockout_Risk": 792,
+        "Stockout_Rate_Pct": 16.11,
+        "Date_Range_Days": 738,
+        "First_Date": "2009-12-01",
+        "Last_Date": "2011-12-09"
+      },
+      "analytics_produced": [
+        "Daily/Weekly/Monthly sales aggregation",
+        "Product-wise analysis (top sellers, slow movers)",
+        "Category-wise sales distribution",
+        "Region-wise sales analysis",
+        "Seasonal patterns (monthly, day-of-week)",
+        "Customer purchasing patterns & segments",
+        "KPI calculation (Revenue, AOV, Turnover, Stockout Rate)"
+      ],
+      "bis701_concepts": [
+        "Spark SQL",
+        "Distributed Aggregation",
+        "Window Functions",
+        "Business Intelligence"
+      ]
+    },
+    "module_5_forecasting": {
+      "name": "Demand Forecasting",
+      "status": "Complete",
+      "models": {
+        "Moving Average": {
+          "MAE": 18.4704,
+          "RMSE": 54.3458,
+          "MAPE": 322.22,
+          "R2": 0.0478
+        },
+        "Linear Regression": {
+          "MAE": 17.6335,
+          "RMSE": 53.2153,
+          "MAPE": 372.54,
+          "R2": 0.087
+        },
+        "Random Forest": {
+          "MAE": 17.6683,
+          "RMSE": 55.1007,
+          "MAPE": 327.4,
+          "R2": 0.0211
+        },
+        "Gradient-Boosted Trees": {
+          "MAE": 17.6986,
+          "RMSE": 57.7776,
+          "MAPE": 294.13,
+          "R2": -0.0763
+        }
+      },
+      "best_model": "Linear Regression",
+      "selection_criterion": "lowest RMSE on test set",
+      "bis701_concepts": [
+        "Spark MLlib",
+        "Machine Learning on Big Data",
+        "Feature Engineering",
+        "Model Evaluation"
+      ],
+      "ml_techniques": [
+        "Moving Average (PySpark window functions)",
+        "Linear Regression (Spark MLlib)",
+        "Random Forest Regression (Spark MLlib)",
+        "Gradient-Boosted Trees (Spark MLlib)"
+      ]
+    },
+    "module_6_inventory": {
+      "name": "Inventory Optimization",
+      "status": "Complete",
+      "summary": {
+        "total_products": 5629,
+        "stockout_risk_high": 4522,
+        "stockout_risk_medium": 523,
+        "overstock_risk_high": 101,
+        "overstock_risk_medium": 32,
+        "urgent_reorder": 4522,
+        "optimal": 565,
+        "parameters": {
+          "lead_time_days": 7,
+          "service_level": 0.95,
+          "z_score": 1.65,
+          "review_period_days": 30
+        },
+        "assumptions": [
+          "Inventory levels are SIMULATED (not from a real warehouse system)",
+          "Lead time is a configurable constant (real lead times vary by supplier)",
+          "Demand is assumed to follow a normal distribution for safety stock calculation",
+          "Service level Z-score assumes normally distributed demand during lead time"
+        ]
+      },
+      "formulas": {
+        "Safety Stock": "Z \u00d7 \u03c3(daily_demand) \u00d7 \u221a(Lead_Time)",
+        "Reorder Point": "Avg_Daily_Demand \u00d7 Lead_Time + Safety_Stock",
+        "Reorder Quantity": "max(0, Predicted_Demand \u2212 Current_Inventory + Safety_Stock)",
+        "Stockout Risk": "Current_Inventory < Reorder_Point",
+        "Overstock Risk": "Current_Inventory > 2 \u00d7 Predicted_Demand"
+      },
+      "bis701_concepts": [
+        "Business Logic on Big Data",
+        "Decision Support Systems"
+      ]
+    }
+  },
+  "bis701_mapping": {
+    "Hadoop / HDFS": {
+      "concept": "Distributed file storage for large-scale data",
+      "implementation": "HDFS operations module (Module 2). In local mode, mirrors HDFS directory structure. Data organized as raw \u2192 processed \u2192 results.",
+      "value": "Demonstrates how Big Data is stored across a distributed cluster."
+    },
+    "MapReduce": {
+      "concept": "Distributed processing paradigm (map + reduce)",
+      "implementation": "Spark's internal execution engine uses DAG-based computation that generalizes MapReduce. GroupBy + Agg operations in PySpark are the modern equivalent of MapReduce patterns.",
+      "value": "Spark provides a more efficient superset of MapReduce."
+    },
+    "Apache Spark": {
+      "concept": "In-memory distributed computing engine",
+      "implementation": "Main processing engine for Modules 3-6. All data cleaning, analytics, feature engineering, and ML use PySpark.",
+      "value": "10-100\u00d7 faster than MapReduce for iterative workloads like ML."
+    },
+    "PySpark": {
+      "concept": "Python API for Apache Spark",
+      "implementation": "Used throughout the project for DataFrame operations, Spark SQL queries, and MLlib model training.",
+      "value": "Enables Python developers to leverage Spark's distributed computing."
+    },
+    "Spark SQL": {
+      "concept": "SQL interface for Spark DataFrames",
+      "implementation": "Data quality validation (Module 3), seasonal analysis (Module 4), KPI calculation (Module 4). Uses registerTempView + spark.sql().",
+      "value": "Familiar SQL syntax for complex analytical queries on Big Data."
+    },
+    "Hive": {
+      "concept": "Data warehouse on Hadoop, SQL-based analytics",
+      "implementation": "Spark SQL provides Hive-compatible SQL analytics. The project uses Spark's built-in Hive support through createOrReplaceTempView and SQL queries.",
+      "value": "Spark SQL is the modern equivalent of Hive for ad-hoc SQL analytics."
+    },
+    "MongoDB": {
+      "concept": "NoSQL document-oriented database",
+      "implementation": "Module 2: Optional storage for results, forecasts, and inventory recommendations. Schema-flexible document storage.",
+      "value": "Demonstrates NoSQL storage for semi-structured analytics results."
+    },
+    "Machine Learning": {
+      "concept": "Predictive modeling on large datasets",
+      "implementation": "Module 5: Four models trained using Spark MLlib \u2014 Moving Average, Linear Regression, Random Forest, GBT.",
+      "value": "Distributed ML training on Big Data using Spark's native ML library."
+    },
+    "Visualization / BI": {
+      "concept": "Business Intelligence dashboards",
+      "implementation": "Module 7: Streamlit dashboard with Plotly charts. Executive, Sales, Forecast, and Inventory pages.",
+      "value": "Translates Big Data analytics into actionable business insights."
+    }
+  },
+  "technology_justification": {
+    "Why Spark over pandas": "Spark processes data in a distributed manner across multiple cores/nodes. For the ~1M record UCI dataset, this demonstrates scalability. In production with billions of records, Spark would be essential while pandas would fail.",
+    "Why Spark MLlib over scikit-learn": "Spark MLlib trains models on distributed DataFrames without collecting data to a single machine. For large datasets, this avoids memory limits. The project uses MLlib's RandomForestRegressor and GBTRegressor.",
+    "Why Parquet over CSV": "Parquet is a columnar storage format with built-in compression and schema. It's 2-10\u00d7 faster for analytical queries and uses 75% less disk space.",
+    "Why MongoDB (optional)": "MongoDB stores semi-structured analytics results (KPIs, forecasts, recommendations) that don't fit a fixed relational schema. Demonstrates NoSQL concepts from the BIS701 syllabus.",
+    "Why Streamlit over Power BI": "Streamlit integrates directly with the Python analytics pipeline. No separate license required. Results are displayed in real-time from the same data files produced by Spark."
+  }
+}

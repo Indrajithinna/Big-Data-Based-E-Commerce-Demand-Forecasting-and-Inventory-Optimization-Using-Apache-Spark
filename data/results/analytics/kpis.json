@@ -1,0 +1,18 @@
+{
+  "Total_Revenue": 19064348.94,
+  "Total_Orders": 40069,
+  "Total_Units_Sold": 10921890,
+  "Total_Products": 4916,
+  "Total_Customers": 5879,
+  "Total_Regions": 43,
+  "Average_Order_Value": 475.79,
+  "Average_Daily_Demand": 14799.31,
+  "Revenue_Growth_Rate_Pct": -68.74,
+  "Inventory_Turnover": 81512.72,
+  "Average_Inventory_Level": 133.99,
+  "Products_At_Stockout_Risk": 792,
+  "Stockout_Rate_Pct": 16.11,
+  "Date_Range_Days": 738,
+  "First_Date": "2009-12-01",
+  "Last_Date": "2011-12-09"
+}

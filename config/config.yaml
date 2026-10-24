@@ -1,0 +1,135 @@
+# =============================================================================
+# Big Data-Based E-Commerce Demand Forecasting & Inventory Optimization
+# Configuration File — All tunable parameters in one place
+# =============================================================================
+
+# --- Project Paths ---
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  results_dir: "data/results"
+  models_dir: "models"
+  raw_dataset_file: "data/raw/online_retail.csv"
+  enriched_dataset_file: "data/raw/ecommerce_sales_enriched.csv"
+  cleaned_dataset_file: "data/processed/cleaned_sales"        # Spark output dir
+  analytics_output_dir: "data/results/analytics"
+  forecast_output_dir: "data/results/forecasts"
+  inventory_output_dir: "data/results/inventory"
+
+# --- Spark Configuration ---
+spark:
+  app_name: "ECommerce_Demand_Forecasting"
+  master: "local[*]"                   # Use all available cores locally
+  driver_memory: "4g"
+  executor_memory: "2g"
+  shuffle_partitions: 8                # Reduce for local mode (default 200)
+  log_level: "WARN"
+
+# --- Dataset Configuration ---
+dataset:
+  # UCI Online Retail II dataset URL
+  source_url: "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip"
+  # Field mappings from original dataset to project schema
+  column_mapping:
+    Invoice: "Order_ID"
+    StockCode: "Product_ID"
+    Description: "Product_Name"
+    Quantity: "Quantity"
+    InvoiceDate: "Order_Date"
+    Price: "Unit_Price"
+    "Customer ID": "Customer_ID"
+    Country: "Region"
+  # Simulated field parameters
+  simulation:
+    seed: 42
+    discount_range: [0.0, 0.30]        # 0% to 30% discount
+    lead_time_range: [3, 14]            # 3 to 14 days delivery
+    num_suppliers: 20
+    num_categories: 12
+    inventory_multiplier: 1.5           # Base inventory = avg demand * multiplier
+
+# --- Data Preprocessing ---
+preprocessing:
+  # Remove rows with quantity <= 0 (cancellations/returns)
+  remove_negative_quantity: true
+  # Remove rows with unit_price <= 0
+  remove_zero_price: true
+  # Maximum quantity per transaction (outlier threshold)
+  max_quantity_per_txn: 10000
+  # Maximum unit price (outlier threshold)
+  max_unit_price: 50000.0
+  # Minimum date (remove clearly erroneous dates)
+  min_date: "2009-01-01"
+  max_date: "2012-12-31"
+
+# --- Analytics ---
+analytics:
+  # Top N products/categories to report
+  top_n: 20
+  # Slow-moving threshold: products with < X units/month
+  slow_moving_threshold: 5
+  # Date granularities for aggregation
+  granularities: ["daily", "weekly", "monthly"]
+
+# --- Demand Forecasting ---
+forecasting:
+  # Train/test split ratio (chronological)
+  train_ratio: 0.8
+  # Forecast horizon (days ahead)
+  forecast_horizon: 30
+  # Forecasting granularity
+  granularity: "daily"      # daily | weekly | monthly
+  # Lag features (days)
+  lag_features: [1, 7, 14, 30]
+  # Rolling window sizes (days)
+  rolling_windows: [7, 14, 30]
+  # Models to train
+  models:
+    moving_average:
+      window_size: 7
+    linear_regression:
+      max_iter: 100
+      reg_param: 0.01
+      elastic_net: 0.5
+    random_forest:
+      num_trees: 25
+      max_depth: 6
+      seed: 42
+    gradient_boosted_trees:
+      max_iter: 20
+      max_depth: 5
+      step_size: 0.1
+      seed: 42
+
+# --- Inventory Optimization ---
+inventory:
+  # Default lead time in days
+  lead_time_days: 7
+  # Service level (probability of not stocking out)
+  service_level: 0.95
+  # Z-score for service level (95% → 1.65, 99% → 2.33)
+  z_score: 1.65
+  # Review period in days (for reorder quantity calculation)
+  review_period_days: 30
+  # Overstock multiplier: flagged if inventory > X × predicted demand
+  overstock_multiplier: 2.0
+
+# --- MongoDB Configuration ---
+mongodb:
+  enabled: false                        # Set true if MongoDB is available
+  connection_string: "mongodb://localhost:27017"
+  database: "ecommerce_demand"
+  collections:
+    cleaned_sales: "cleaned_sales"
+    product_master: "product_master"
+    analytics: "analytics_results"
+    forecasts: "demand_forecasts"
+    inventory: "inventory_recommendations"
+    kpis: "kpi_metrics"
+
+# --- Dashboard ---
+dashboard:
+  title: "E-Commerce Demand Forecasting & Inventory Optimization"
+  port: 8501
+  theme: "dark"
+  refresh_interval_seconds: 300

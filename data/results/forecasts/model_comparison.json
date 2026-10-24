@@ -1,0 +1,30 @@
+{
+  "models": {
+    "Moving Average": {
+      "MAE": 18.4704,
+      "RMSE": 54.3458,
+      "MAPE": 322.22,
+      "R2": 0.0478
+    },
+    "Linear Regression": {
+      "MAE": 17.6335,
+      "RMSE": 53.2153,
+      "MAPE": 372.54,
+      "R2": 0.087
+    },
+    "Random Forest": {
+      "MAE": 17.6683,
+      "RMSE": 55.1007,
+      "MAPE": 327.4,
+      "R2": 0.0211
+    },
+    "Gradient-Boosted Trees": {
+      "MAE": 17.6986,
+      "RMSE": 57.7776,
+      "MAPE": 294.13,
+      "R2": -0.0763
+    }
+  },
+  "best_model": "Linear Regression",
+  "selection_criterion": "lowest RMSE on test set"
+}

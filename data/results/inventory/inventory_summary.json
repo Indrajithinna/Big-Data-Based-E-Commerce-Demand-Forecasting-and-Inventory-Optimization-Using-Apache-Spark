@@ -1,0 +1,21 @@
+{
+  "total_products": 5629,
+  "stockout_risk_high": 4522,
+  "stockout_risk_medium": 523,
+  "overstock_risk_high": 101,
+  "overstock_risk_medium": 32,
+  "urgent_reorder": 4522,
+  "optimal": 565,
+  "parameters": {
+    "lead_time_days": 7,
+    "service_level": 0.95,
+    "z_score": 1.65,
+    "review_period_days": 30
+  },
+  "assumptions": [
+    "Inventory levels are SIMULATED (not from a real warehouse system)",
+    "Lead time is a configurable constant (real lead times vary by supplier)",
+    "Demand is assumed to follow a normal distribution for safety stock calculation",
+    "Service level Z-score assumes normally distributed demand during lead time"
+  ]
+}

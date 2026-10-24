@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# PySpark / Hadoop logs and metastore
+metastore_db/
+derby.log
+.sparkStaging/
+*.crc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IDEs and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+[
+  {"feature": "Region_Index", "importance": 0.2018},
+  {"feature": "Avg_Unit_Price", "importance": 0.1244},
+  {"feature": "Rolling_Mean_14", "importance": 0.0847},
+  {"feature": "Category_Index", "importance": 0.0773},
+  {"feature": "Month", "importance": 0.0740},
+  {"feature": "Rolling_Mean_30", "importance": 0.0688},
+  {"feature": "Rolling_Mean_7", "importance": 0.0684},
+  {"feature": "Lag_1_Demand", "importance": 0.0543},
+  {"feature": "Week_of_Year", "importance": 0.0512},
+  {"feature": "Product_Index", "importance": 0.0485},
+  {"feature": "Lag_7_Demand", "importance": 0.0421},
+  {"feature": "Lag_14_Demand", "importance": 0.0354},
+  {"feature": "Lag_30_Demand", "importance": 0.0298},
+  {"feature": "Avg_Discount", "importance": 0.0210},
+  {"feature": "Day_of_Month", "importance": 0.0195},
+  {"feature": "Quarter", "importance": 0.0125},
+  {"feature": "Day_of_Week", "importance": 0.0063}
+]
